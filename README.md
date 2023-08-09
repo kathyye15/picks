@@ -17,6 +17,12 @@ Founders: [Kathy Ye](https://github.com/kathyye15) and [Kelvin Fang](https://git
 
 ## How to get started
 
+Create a `.env.local` file containing your Google API key:
+
+```
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="your api key here"
+```
+
 Run the following:
 
 ```
