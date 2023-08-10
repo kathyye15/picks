@@ -1,6 +1,5 @@
-import Head from "next/head";
-import { useMemo } from "react";
-import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
+import Map from "../components/Map";
 
 export default function Home() {
   const { isLoaded } = useLoadScript({
@@ -8,16 +7,4 @@ export default function Home() {
   });
   if (!isLoaded) return <h1>loading........</h1>;
   return <Map />;
-}
-
-function Map() {
-  const center = useMemo(
-    () => ({ lat: 37.74330863129275, lng: -122.477352087827 }),
-    []
-  );
-  return (
-    <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
-      <MarkerF position={center} />
-    </GoogleMap>
-  );
 }
