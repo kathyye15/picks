@@ -7,19 +7,14 @@ export default function Home() {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
   if (!isLoaded) return <h1>loading........</h1>;
-  return (
-    <>
-      <Head>
-        <title>picks</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Map />
-    </>
-  );
+  return <Map />;
 }
 
 function Map() {
-  const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+  const center = useMemo(
+    () => ({ lat: 37.74330863129275, lng: -122.477352087827 }),
+    []
+  );
   return (
     <GoogleMap zoom={10} center={center} mapContainerClassName="map-container">
       <MarkerF position={center} />
