@@ -8,10 +8,5 @@ export default function Home() {
     libraries: libraries,
   });
   if (!isLoaded) return <h1>loading........</h1>;
-
-  return (
-    <>
-      <Map />
-    </>
-  );
+  return <Map />;
 }
