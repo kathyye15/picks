@@ -1,7 +1,6 @@
 # picks
 
 A web application that allows users to explore nearby "things to do" and save their picks to a personalized itinerary.\
-Founders: [Kathy Ye](https://github.com/kathyye15) and [Kelvin Fang](https://github.com/shibainuinuinu)
 
 ## Technologies used:
 
