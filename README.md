@@ -1,6 +1,6 @@
 # picks
 
-A web application that allows users to explore nearby "things to do" and save their picks to a personalized itinerary.\
+A web application that allows users to explore nearby "things to do" and save their picks to a personalized itinerary.
 
 ## Technologies used:
 
