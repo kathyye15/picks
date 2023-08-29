@@ -40,7 +40,7 @@ export default function PlacesAutocomplete({ setSelected }) {
   );
 
   return (
-    <div id="searchbox">
+    <span id="searchbox">
       <OverlayTrigger
         trigger="click"
         placement="bottom"
@@ -56,6 +56,6 @@ export default function PlacesAutocomplete({ setSelected }) {
           placeholder="Search an address"
         />
       </OverlayTrigger>
-    </div>
+    </span>
   );
 }
