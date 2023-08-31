@@ -7,6 +7,7 @@ export default function Map() {
   return (
     <>
       <div className="places-container">
+        <span>top 5 picks near </span>
         <PlacesAutocomplete setSelected={setSelected} />
       </div>
       <GoogleMap

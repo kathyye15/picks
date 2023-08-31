@@ -20,6 +20,10 @@ export default function PlacesAutocomplete({ setSelected }) {
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSelected({ lat, lng });
+    //TODO: Create nearby results interface
+    const response = await fetch(`api/google?lat=${lat}&lng=${lng}`);
+    const restaurants = await response.json();
+    console.log(restaurants.results);
   };
 
   const popover = (
@@ -40,7 +44,7 @@ export default function PlacesAutocomplete({ setSelected }) {
   );
 
   return (
-    <div id="searchbox">
+    <span id="searchbox">
       <OverlayTrigger
         trigger="click"
         placement="bottom"
@@ -56,6 +60,6 @@ export default function PlacesAutocomplete({ setSelected }) {
           placeholder="Search an address"
         />
       </OverlayTrigger>
-    </div>
+    </span>
   );
 }
