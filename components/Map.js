@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
+import Nearby from "./Nearby";
 
 export default function Map() {
   const [selected, setSelected] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
   return (
     <>
       <div className="places-container">
-        <span>top 5 picks near </span>
-        <PlacesAutocomplete setSelected={setSelected} />
+        <span>restaurants near </span>
+        <PlacesAutocomplete
+          setSelected={setSelected}
+          setRestaurants={setRestaurants}
+        />
       </div>
       <GoogleMap
         zoom={10}
@@ -28,6 +33,7 @@ export default function Map() {
             }}
           />
         )}
+        {restaurants && <Nearby restaurants={restaurants} />}
       </GoogleMap>
     </>
   );
