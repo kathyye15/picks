@@ -4,7 +4,11 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 
-export default function PlacesAutocomplete({ setSelected, setRestaurants }) {
+export default function PlacesAutocomplete({
+  setSelected,
+  setRestaurants,
+  setRoutes,
+}) {
   const {
     ready,
     value,
@@ -24,6 +28,9 @@ export default function PlacesAutocomplete({ setSelected, setRestaurants }) {
     const response = await fetch(`api/google?lat=${lat}&lng=${lng}`);
     const restaurants = await response.json();
     setRestaurants(restaurants.results);
+    const data = await fetch("api/directions");
+    const directions = await data.json();
+    setRoutes(directions);
   };
 
   const popover = (

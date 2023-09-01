@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, DirectionsRenderer } from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import Nearby from "./Nearby";
 
 export default function Map() {
   const [selected, setSelected] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
+  const [routes, setRoutes] = useState(null);
   return (
     <>
       <div className="places-container">
@@ -13,6 +14,7 @@ export default function Map() {
         <PlacesAutocomplete
           setSelected={setSelected}
           setRestaurants={setRestaurants}
+          setRoutes={setRoutes}
         />
       </div>
       <GoogleMap
@@ -34,7 +36,15 @@ export default function Map() {
           />
         )}
         {restaurants && <Nearby restaurants={restaurants} />}
+        {routes && (
+          <DirectionsRenderer
+            // required
+            options={{ directions: routes?.routes }}
+          />
+        )}
       </GoogleMap>
+      {routes &&
+        console.log(`this is routes array: ${JSON.stringify(routes?.routes)}`)}
     </>
   );
 }
