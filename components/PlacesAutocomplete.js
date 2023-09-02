@@ -7,7 +7,7 @@ import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 export default function PlacesAutocomplete({
   setSelected,
   setRestaurants,
-  setRoutes,
+  setStartPlaceID,
 }) {
   const {
     ready,
@@ -24,6 +24,7 @@ export default function PlacesAutocomplete({
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSelected({ lat, lng });
+    setStartPlaceID(results[0].place_id);
     //TODO: Create nearby results interface
     const response = await fetch(`api/google?lat=${lat}&lng=${lng}`);
     const restaurants = await response.json();
