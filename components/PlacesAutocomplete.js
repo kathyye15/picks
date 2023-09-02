@@ -28,9 +28,6 @@ export default function PlacesAutocomplete({
     const response = await fetch(`api/google?lat=${lat}&lng=${lng}`);
     const restaurants = await response.json();
     setRestaurants(restaurants.results);
-    const data = await fetch("api/directions");
-    const directions = await data.json();
-    setRoutes(directions);
   };
 
   const popover = (
