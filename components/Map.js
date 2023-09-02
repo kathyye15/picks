@@ -1,11 +1,37 @@
-import React, { useState } from "react";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import React, { useState, useCallback, useMemo } from "react";
+import {
+  GoogleMap,
+  MarkerF,
+  DirectionsService,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import Nearby from "./Nearby";
 
 export default function Map() {
   const [selected, setSelected] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
+  const [response, setResponse] = useState(null);
+
+  const directionsServiceOptions = useMemo(() => {
+    //TODO: make option variables dynamic
+    return {
+      destination: "Montreal",
+      origin: "Toronto",
+      travelMode: "DRIVING",
+    };
+  }, []);
+
+  const directionsCallback = useCallback((result) => {
+    setResponse(result);
+  }, []);
+
+  const directionsResult = useMemo(() => {
+    return {
+      directions: response,
+    };
+  }, [response]);
+
   return (
     <>
       <div className="places-container">
@@ -34,6 +60,11 @@ export default function Map() {
           />
         )}
         {restaurants && <Nearby restaurants={restaurants} />}
+        <DirectionsService
+          options={directionsServiceOptions}
+          callback={directionsCallback}
+        />
+        {response && <DirectionsRenderer options={directionsResult} />}
       </GoogleMap>
     </>
   );

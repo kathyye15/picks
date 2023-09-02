@@ -4,7 +4,11 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 
-export default function PlacesAutocomplete({ setSelected, setRestaurants }) {
+export default function PlacesAutocomplete({
+  setSelected,
+  setRestaurants,
+  setRoutes,
+}) {
   const {
     ready,
     value,
