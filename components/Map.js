@@ -12,15 +12,16 @@ export default function Map() {
   const [selected, setSelected] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
   const [response, setResponse] = useState(null);
+  const [startPlaceID, setStartPlaceID] = useState("");
+  const [endPlaceID, setEndPlaceID] = useState("");
 
   const directionsServiceOptions = useMemo(() => {
-    //TODO: make option variables dynamic
     return {
-      destination: "Montreal",
-      origin: "Toronto",
-      travelMode: "DRIVING",
+      origin: { placeId: startPlaceID },
+      destination: { placeId: endPlaceID },
+      travelMode: "WALKING",
     };
-  }, []);
+  }, [startPlaceID, endPlaceID]);
 
   const directionsCallback = useCallback((result) => {
     setResponse(result);
@@ -39,6 +40,7 @@ export default function Map() {
         <PlacesAutocomplete
           setSelected={setSelected}
           setRestaurants={setRestaurants}
+          setStartPlaceID={setStartPlaceID}
         />
       </div>
       <GoogleMap
@@ -59,7 +61,9 @@ export default function Map() {
             }}
           />
         )}
-        {restaurants && <Nearby restaurants={restaurants} />}
+        {restaurants && (
+          <Nearby restaurants={restaurants} setEndPlaceID={setEndPlaceID} />
+        )}
         <DirectionsService
           options={directionsServiceOptions}
           callback={directionsCallback}
