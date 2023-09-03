@@ -6,7 +6,7 @@ import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 
 export default function PlacesAutocomplete({
   setSelected,
-  setRestaurants,
+  setAttractions,
   setStartPlaceID,
 }) {
   const {
@@ -17,7 +17,7 @@ export default function PlacesAutocomplete({
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  const handleSelect = async (address) => {
+  const handleSelect = async (address, terms) => {
     setValue(address, false);
     clearSuggestions();
 
@@ -25,20 +25,21 @@ export default function PlacesAutocomplete({
     const { lat, lng } = await getLatLng(results[0]);
     setSelected({ lat, lng });
     setStartPlaceID(results[0].place_id);
-    //TODO: Create nearby results interface
-    const response = await fetch(`api/google?lat=${lat}&lng=${lng}`);
-    const restaurants = await response.json();
-    setRestaurants(restaurants.results);
+    //TODO: add a test for city validity
+    const city = terms.at(-3).value.replace(/ /g, "+");
+    const response = await fetch(`api/google?city=${city}`);
+    const attractions = await response.json();
+    setAttractions(attractions.results);
   };
 
   const popover = (
     <Popover id="popover-search-results">
       <Popover.Body>
         <ListGroup>
-          {data.map(({ place_id, description }) => (
+          {data.map(({ place_id, description, terms }) => (
             <ListGroup.Item
               key={place_id}
-              onClick={() => handleSelect(description)}
+              onClick={() => handleSelect(description, terms)}
             >
               {description}
             </ListGroup.Item>

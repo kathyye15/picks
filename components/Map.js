@@ -10,7 +10,7 @@ import Nearby from "./Nearby";
 
 export default function Map() {
   const [selected, setSelected] = useState(null);
-  const [restaurants, setRestaurants] = useState([]);
+  const [attractions, setAttractions] = useState([]);
   const [response, setResponse] = useState(null);
   const [startPlaceID, setStartPlaceID] = useState("");
   const [endPlaceID, setEndPlaceID] = useState("");
@@ -36,10 +36,10 @@ export default function Map() {
   return (
     <>
       <div className="places-container">
-        <span>restaurants near </span>
+        <span>Attractions near </span>
         <PlacesAutocomplete
           setSelected={setSelected}
-          setRestaurants={setRestaurants}
+          setAttractions={setAttractions}
           setStartPlaceID={setStartPlaceID}
         />
       </div>
@@ -61,8 +61,8 @@ export default function Map() {
             }}
           />
         )}
-        {restaurants && (
-          <Nearby restaurants={restaurants} setEndPlaceID={setEndPlaceID} />
+        {attractions && (
+          <Nearby attractions={attractions} setEndPlaceID={setEndPlaceID} />
         )}
         <DirectionsService
           options={directionsServiceOptions}
