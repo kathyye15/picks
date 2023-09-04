@@ -8,6 +8,7 @@ export default function AppProvider({ children }) {
   const [response, setResponse] = useState(null);
   const [startPlaceID, setStartPlaceID] = useState("");
   const [endPlaceID, setEndPlaceID] = useState("");
+  const [inExplore, setInExplore] = useState(true);
 
   return (
     <AppContext.Provider
@@ -22,6 +23,8 @@ export default function AppProvider({ children }) {
         setStartPlaceID,
         endPlaceID,
         setEndPlaceID,
+        inExplore,
+        setInExplore,
       }}
     >
       {children}

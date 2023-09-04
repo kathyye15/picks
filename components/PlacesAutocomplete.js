@@ -43,7 +43,7 @@ export default function PlacesAutocomplete() {
               key={place_id}
               onClick={() => handleSelect(description, terms)}
             >
-              <Link href="/explore">{description}</Link>
+              <Link href="/picks">{description}</Link>
             </ListGroup.Item>
           ))}
         </ListGroup>
