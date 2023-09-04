@@ -1,5 +1,5 @@
 import { useLoadScript } from "@react-google-maps/api";
-import Map from "../components/Map";
+import PlacesAutocomplete from "../components/PlacesAutocomplete";
 
 const libraries = ["places"];
 export default function Home() {
@@ -8,5 +8,10 @@ export default function Home() {
     libraries: libraries,
   });
   if (!isLoaded) return <h1>loading........</h1>;
-  return <Map />;
+  return (
+    <>
+      <div>Start your guide! Type in location or search by city:</div>
+      <PlacesAutocomplete />
+    </>
+  );
 }

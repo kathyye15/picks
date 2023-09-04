@@ -1,14 +1,16 @@
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
+import Link from "next/link";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 
-export default function PlacesAutocomplete({
-  setSelected,
-  setAttractions,
-  setStartPlaceID,
-}) {
+export default function PlacesAutocomplete() {
+  const { setSelected, setAttractions, setStartPlaceID } =
+    useContext(AppContext);
+
   const {
     ready,
     value,
@@ -41,7 +43,7 @@ export default function PlacesAutocomplete({
               key={place_id}
               onClick={() => handleSelect(description, terms)}
             >
-              {description}
+              <Link href="/explore">{description}</Link>
             </ListGroup.Item>
           ))}
         </ListGroup>
@@ -63,7 +65,7 @@ export default function PlacesAutocomplete({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           disabled={!ready}
-          placeholder="Search an address"
+          placeholder="search..."
         />
       </OverlayTrigger>
     </span>
