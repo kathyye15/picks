@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Navbar from "./Navbar";
+import Header from "./Header";
+import MyApp from "../contexts/AppContext";
 
 export default function Layout({ children }) {
   return (
@@ -7,8 +8,10 @@ export default function Layout({ children }) {
       <Head>
         <title>picks</title>
       </Head>
-      <Navbar />
-      <main>{children}</main>
+      <MyApp>
+        <Header />
+        <main>{children}</main>
+      </MyApp>
     </>
   );
 }

@@ -1,4 +1,5 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 import {
   GoogleMap,
   MarkerF,
@@ -9,11 +10,14 @@ import PlacesAutocomplete from "./PlacesAutocomplete";
 import Nearby from "./Nearby";
 
 export default function Map() {
-  const [selected, setSelected] = useState(null);
-  const [attractions, setAttractions] = useState([]);
-  const [response, setResponse] = useState(null);
-  const [startPlaceID, setStartPlaceID] = useState("");
-  const [endPlaceID, setEndPlaceID] = useState("");
+  const {
+    selected,
+    attractions,
+    response,
+    setResponse,
+    startPlaceID,
+    endPlaceID,
+  } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
     return {
@@ -37,11 +41,7 @@ export default function Map() {
     <>
       <div className="places-container">
         <span>Attractions near </span>
-        <PlacesAutocomplete
-          setSelected={setSelected}
-          setAttractions={setAttractions}
-          setStartPlaceID={setStartPlaceID}
-        />
+        <PlacesAutocomplete />
       </div>
       <GoogleMap
         zoom={10}
@@ -61,9 +61,7 @@ export default function Map() {
             }}
           />
         )}
-        {attractions && (
-          <Nearby attractions={attractions} setEndPlaceID={setEndPlaceID} />
-        )}
+        {attractions && <Nearby />}
         <DirectionsService
           options={directionsServiceOptions}
           callback={directionsCallback}

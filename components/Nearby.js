@@ -1,7 +1,9 @@
-import React, { useCallback } from "react";
+import React, { useContext } from "react";
 import { MarkerF } from "@react-google-maps/api";
+import { AppContext } from "../contexts/AppContext";
 
-export default function Nearby({ attractions, setEndPlaceID }) {
+export default function Nearby() {
+  const { attractions, setEndPlaceID } = useContext(AppContext);
   return (
     <>
       {attractions.map((attraction) => (
