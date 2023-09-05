@@ -3,25 +3,34 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
-  const [selected, setSelected] = useState(null);
-  const [attractions, setAttractions] = useState([]);
-  const [response, setResponse] = useState(null);
-  const [startPlaceID, setStartPlaceID] = useState("");
-  const [endPlaceID, setEndPlaceID] = useState("");
-
+  const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
+    useState(null);
+  const [searchedCity, setSearchedCity] = useState("");
+  const [userSelectedPick, setUserSelectedPick] = useState({});
+  const [nearbyPicks, setNearbyPicks] = useState([]);
+  const [savedPicks, setSavedPicks] = useState([]);
+  const [directionsResponse, setDirectionsResponse] = useState(null);
+  const [inExploreView, setInExploreView] = useState(true);
+  const [interacted, setInteracted] = useState(false);
   return (
     <AppContext.Provider
       value={{
-        selected,
-        setSelected,
-        attractions,
-        setAttractions,
-        response,
-        setResponse,
-        startPlaceID,
-        setStartPlaceID,
-        endPlaceID,
-        setEndPlaceID,
+        searchedLocationCoordinates,
+        setSearchedLocationCoordinates,
+        searchedCity,
+        setSearchedCity,
+        userSelectedPick,
+        setUserSelectedPick,
+        nearbyPicks,
+        setNearbyPicks,
+        savedPicks,
+        setSavedPicks,
+        directionsResponse,
+        setDirectionsResponse,
+        inExploreView,
+        setInExploreView,
+        interacted,
+        setInteracted,
       }}
     >
       {children}

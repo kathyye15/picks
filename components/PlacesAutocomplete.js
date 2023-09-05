@@ -8,8 +8,11 @@ import usePlacesAutocomplete, {
 import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 
 export default function PlacesAutocomplete() {
-  const { setSelected, setAttractions, setStartPlaceID } =
-    useContext(AppContext);
+  const {
+    setSearchedLocationCoordinates,
+    setNearbyPicks,
+    setSearchedCity,
+  } = useContext(AppContext);
 
   const {
     ready,
@@ -25,13 +28,14 @@ export default function PlacesAutocomplete() {
 
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
-    setSelected({ lat, lng });
-    setStartPlaceID(results[0].place_id);
+    setSearchedLocationCoordinates({ lat, lng });
     //TODO: add a test for city validity
-    const city = terms.at(-3).value.replace(/ /g, "+");
-    const response = await fetch(`api/google?city=${city}`);
+    const city = terms.at(-3).value;
+    setSearchedCity(city);
+    const formattedCity = city.replace(/ /g, "+");
+    const response = await fetch(`api/google?city=${formattedCity}`);
     const attractions = await response.json();
-    setAttractions(attractions.results);
+    setNearbyPicks(attractions.results);
   };
 
   const popover = (
@@ -43,7 +47,7 @@ export default function PlacesAutocomplete() {
               key={place_id}
               onClick={() => handleSelect(description, terms)}
             >
-              <Link href="/explore">{description}</Link>
+              <Link href="/picks">{description}</Link>
             </ListGroup.Item>
           ))}
         </ListGroup>
