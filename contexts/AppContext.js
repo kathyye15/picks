@@ -4,7 +4,9 @@ export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
   const [selected, setSelected] = useState(null);
+  const [userSelectedAttraction, setUserSelectedAttraction] = useState({});
   const [attractions, setAttractions] = useState([]);
+  const [savedAttractions, setSavedAttractions] = useState([]);
   const [response, setResponse] = useState(null);
   const [startPlaceID, setStartPlaceID] = useState("");
   const [endPlaceID, setEndPlaceID] = useState("");
@@ -17,6 +19,8 @@ export default function AppProvider({ children }) {
         setSelected,
         attractions,
         setAttractions,
+        savedAttractions,
+        setSavedAttractions,
         response,
         setResponse,
         startPlaceID,
@@ -25,6 +29,8 @@ export default function AppProvider({ children }) {
         setEndPlaceID,
         inExplore,
         setInExplore,
+        userSelectedAttraction,
+        setUserSelectedAttraction,
       }}
     >
       {children}
