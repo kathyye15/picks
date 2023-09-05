@@ -11,7 +11,6 @@ export default function PlacesAutocomplete() {
   const {
     setSearchedLocationCoordinates,
     setNearbyAttractions,
-    setStartPlaceID,
     setSearchedCity,
   } = useContext(AppContext);
 
@@ -30,7 +29,6 @@ export default function PlacesAutocomplete() {
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSearchedLocationCoordinates({ lat, lng });
-    setStartPlaceID(results[0].place_id);
     //TODO: add a test for city validity
     const city = terms.at(-3).value;
     setSearchedCity(city);

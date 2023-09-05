@@ -15,17 +15,23 @@ export default function Map() {
     nearbyAttractions,
     directionsResponse,
     setDirectionsResponse,
-    startPlaceID,
-    endPlaceID,
+    savedAttractions,
   } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
     return {
-      origin: { placeId: startPlaceID },
-      destination: { placeId: endPlaceID },
+      origin: { placeId: savedAttractions?.[0]?.place_id },
+      destination: { placeId: savedAttractions?.at(-1)?.place_id },
+      waypoints: savedAttractions.slice(1, -1).map((attraction) => ({
+        stopover: true,
+        location: {
+          placeId: attraction.place_id,
+        },
+      })),
+      optimizeWaypoints: true,
       travelMode: "WALKING",
     };
-  }, [startPlaceID, endPlaceID]);
+  }, [savedAttractions]);
 
   const directionsCallback = useCallback((result) => {
     setDirectionsResponse(result);
@@ -62,10 +68,12 @@ export default function Map() {
           />
         )}
         {nearbyAttractions && <Nearby />}
-        <DirectionsService
-          options={directionsServiceOptions}
-          callback={directionsCallback}
-        />
+        {savedAttractions.length > 1 && (
+          <DirectionsService
+            options={directionsServiceOptions}
+            callback={directionsCallback}
+          />
+        )}
         {directionsResponse && (
           <DirectionsRenderer options={directionsResult} />
         )}

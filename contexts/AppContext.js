@@ -10,8 +10,6 @@ export default function AppProvider({ children }) {
   const [nearbyAttractions, setNearbyAttractions] = useState([]);
   const [savedAttractions, setSavedAttractions] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
-  const [startPlaceID, setStartPlaceID] = useState("");
-  const [endPlaceID, setEndPlaceID] = useState("");
   const [inExploreView, setInExploreView] = useState(true);
   const [interacted, setInteracted] = useState(false);
   return (
@@ -29,10 +27,6 @@ export default function AppProvider({ children }) {
         setSavedAttractions,
         directionsResponse,
         setDirectionsResponse,
-        startPlaceID,
-        setStartPlaceID,
-        endPlaceID,
-        setEndPlaceID,
         inExploreView,
         setInExploreView,
         interacted,
