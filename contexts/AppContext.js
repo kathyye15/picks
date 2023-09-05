@@ -3,34 +3,40 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
-  const [selected, setSelected] = useState(null);
+  const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
+    useState(null);
+  const [searchedCity, setSearchedCity] = useState("");
   const [userSelectedAttraction, setUserSelectedAttraction] = useState({});
-  const [attractions, setAttractions] = useState([]);
+  const [nearbyAttractions, setNearbyAttractions] = useState([]);
   const [savedAttractions, setSavedAttractions] = useState([]);
-  const [response, setResponse] = useState(null);
+  const [directionsResponse, setDirectionsResponse] = useState(null);
   const [startPlaceID, setStartPlaceID] = useState("");
   const [endPlaceID, setEndPlaceID] = useState("");
-  const [inExplore, setInExplore] = useState(true);
-
+  const [inExploreView, setInExploreView] = useState(true);
+  const [interacted, setInteracted] = useState(false);
   return (
     <AppContext.Provider
       value={{
-        selected,
-        setSelected,
-        attractions,
-        setAttractions,
+        searchedLocationCoordinates,
+        setSearchedLocationCoordinates,
+        searchedCity,
+        setSearchedCity,
+        userSelectedAttraction,
+        setUserSelectedAttraction,
+        nearbyAttractions,
+        setNearbyAttractions,
         savedAttractions,
         setSavedAttractions,
-        response,
-        setResponse,
+        directionsResponse,
+        setDirectionsResponse,
         startPlaceID,
         setStartPlaceID,
         endPlaceID,
         setEndPlaceID,
-        inExplore,
-        setInExplore,
-        userSelectedAttraction,
-        setUserSelectedAttraction,
+        inExploreView,
+        setInExploreView,
+        interacted,
+        setInteracted,
       }}
     >
       {children}

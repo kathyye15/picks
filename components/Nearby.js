@@ -3,17 +3,22 @@ import { MarkerF } from "@react-google-maps/api";
 import { AppContext } from "../contexts/AppContext";
 
 export default function Nearby() {
-  const { attractions, setEndPlaceID, setUserSelectedAttraction } =
-    useContext(AppContext);
+  const {
+    nearbyAttractions,
+    setEndPlaceID,
+    setUserSelectedAttraction,
+    setInteracted,
+  } = useContext(AppContext);
   return (
     <>
-      {attractions.map((attraction) => (
+      {nearbyAttractions.map((attraction) => (
         <MarkerF
           position={attraction.geometry.location}
           key={attraction.place_id}
           onClick={() => {
             setEndPlaceID(attraction.place_id);
             setUserSelectedAttraction(attraction);
+            setInteracted(true);
           }}
         />
       ))}

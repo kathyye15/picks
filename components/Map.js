@@ -11,10 +11,10 @@ import Nearby from "./Nearby";
 
 export default function Map() {
   const {
-    selected,
-    attractions,
-    response,
-    setResponse,
+    searchedLocationCoordinates,
+    nearbyAttractions,
+    directionsResponse,
+    setDirectionsResponse,
     startPlaceID,
     endPlaceID,
   } = useContext(AppContext);
@@ -28,29 +28,29 @@ export default function Map() {
   }, [startPlaceID, endPlaceID]);
 
   const directionsCallback = useCallback((result) => {
-    setResponse(result);
+    setDirectionsResponse(result);
   }, []);
 
   const directionsResult = useMemo(() => {
     return {
-      directions: response,
+      directions: directionsResponse,
     };
-  }, [response]);
+  }, [directionsResponse]);
 
   return (
     <>
       <div className="places-container">
-        <span>Attractions near </span>
+        <span>change your picks location: </span>
         <PlacesAutocomplete />
       </div>
       <GoogleMap
         zoom={10}
-        center={selected}
+        center={searchedLocationCoordinates}
         mapContainerClassName="map-container"
       >
-        {selected && (
+        {searchedLocationCoordinates && (
           <MarkerF
-            position={selected}
+            position={searchedLocationCoordinates}
             icon={{
               path: "M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
               fillColor: "yellow",
@@ -61,12 +61,14 @@ export default function Map() {
             }}
           />
         )}
-        {attractions && <Nearby />}
+        {nearbyAttractions && <Nearby />}
         <DirectionsService
           options={directionsServiceOptions}
           callback={directionsCallback}
         />
-        {response && <DirectionsRenderer options={directionsResult} />}
+        {directionsResponse && (
+          <DirectionsRenderer options={directionsResult} />
+        )}
       </GoogleMap>
     </>
   );

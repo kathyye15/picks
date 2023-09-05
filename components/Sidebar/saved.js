@@ -2,14 +2,14 @@ import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
 
 export default function Saved() {
-  const { savedAttractions, inExplore, setInExplore } = useContext(AppContext);
+  const { savedAttractions, inExploreView, setInExploreView } = useContext(AppContext);
   return (
-    <>
+    <div className="saved-sidebar">
       <h1>Day 1:</h1>
       <h2>Places to visit:</h2>
       <button
         onClick={() => {
-          setInExplore(!inExplore);
+          setInExploreView(!inExploreView);
         }}
       >
         toggle explore/saved view
@@ -19,6 +19,6 @@ export default function Saved() {
           <li key={attraction.place_id}>{attraction.name}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
