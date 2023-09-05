@@ -12,26 +12,26 @@ import Nearby from "./Nearby";
 export default function Map() {
   const {
     searchedLocationCoordinates,
-    nearbyAttractions,
+    nearbyPicks,
     directionsResponse,
     setDirectionsResponse,
-    savedAttractions,
+    savedPicks,
   } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
     return {
-      origin: { placeId: savedAttractions?.[0]?.place_id },
-      destination: { placeId: savedAttractions?.at(-1)?.place_id },
-      waypoints: savedAttractions.slice(1, -1).map((attraction) => ({
+      origin: { placeId: savedPicks?.[0]?.place_id },
+      destination: { placeId: savedPicks?.at(-1)?.place_id },
+      waypoints: savedPicks.slice(1, -1).map((pick) => ({
         stopover: true,
         location: {
-          placeId: attraction.place_id,
+          placeId: pick.place_id,
         },
       })),
       optimizeWaypoints: true,
       travelMode: "WALKING",
     };
-  }, [savedAttractions]);
+  }, [savedPicks]);
 
   const directionsCallback = useCallback((result) => {
     setDirectionsResponse(result);
@@ -67,8 +67,8 @@ export default function Map() {
             }}
           />
         )}
-        {nearbyAttractions && <Nearby />}
-        {savedAttractions.length > 1 && (
+        {nearbyPicks && <Nearby />}
+        {savedPicks.length > 1 && (
           <DirectionsService
             options={directionsServiceOptions}
             callback={directionsCallback}

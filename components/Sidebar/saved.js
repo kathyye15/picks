@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
 
 export default function Saved() {
-  const { savedAttractions, inExploreView, setInExploreView } =
+  const { savedPicks, inExploreView, setInExploreView } =
     useContext(AppContext);
   return (
     <div className="saved-sidebar">
@@ -16,8 +16,8 @@ export default function Saved() {
         toggle explore/saved view
       </button>
       <ol>
-        {savedAttractions.map((attraction) => (
-          <li key={attraction.place_id}>{attraction.name}</li>
+        {savedPicks.map((pick) => (
+          <li key={pick.place_id}>{pick.name}</li>
         ))}
       </ol>
     </div>

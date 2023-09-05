@@ -6,9 +6,9 @@ export default function AppProvider({ children }) {
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
   const [searchedCity, setSearchedCity] = useState("");
-  const [userSelectedAttraction, setUserSelectedAttraction] = useState({});
-  const [nearbyAttractions, setNearbyAttractions] = useState([]);
-  const [savedAttractions, setSavedAttractions] = useState([]);
+  const [userSelectedPick, setUserSelectedPick] = useState({});
+  const [nearbyPicks, setNearbyPicks] = useState([]);
+  const [savedPicks, setSavedPicks] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [inExploreView, setInExploreView] = useState(true);
   const [interacted, setInteracted] = useState(false);
@@ -19,12 +19,12 @@ export default function AppProvider({ children }) {
         setSearchedLocationCoordinates,
         searchedCity,
         setSearchedCity,
-        userSelectedAttraction,
-        setUserSelectedAttraction,
-        nearbyAttractions,
-        setNearbyAttractions,
-        savedAttractions,
-        setSavedAttractions,
+        userSelectedPick,
+        setUserSelectedPick,
+        nearbyPicks,
+        setNearbyPicks,
+        savedPicks,
+        setSavedPicks,
         directionsResponse,
         setDirectionsResponse,
         inExploreView,

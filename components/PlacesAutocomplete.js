@@ -10,7 +10,7 @@ import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
 export default function PlacesAutocomplete() {
   const {
     setSearchedLocationCoordinates,
-    setNearbyAttractions,
+    setNearbyPicks,
     setSearchedCity,
   } = useContext(AppContext);
 
@@ -35,7 +35,7 @@ export default function PlacesAutocomplete() {
     const formattedCity = city.replace(/ /g, "+");
     const response = await fetch(`api/google?city=${formattedCity}`);
     const attractions = await response.json();
-    setNearbyAttractions(attractions.results);
+    setNearbyPicks(attractions.results);
   };
 
   const popover = (

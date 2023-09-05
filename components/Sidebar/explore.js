@@ -3,19 +3,19 @@ import { AppContext } from "../../contexts/AppContext";
 
 export default function Explore() {
   const {
-    userSelectedAttraction,
-    savedAttractions,
-    setSavedAttractions,
+    userSelectedPick,
+    savedPicks,
+    setSavedPicks,
     inExploreView,
     setInExploreView,
   } = useContext(AppContext);
   return (
     <div className="explore-sidebar">
       <div className="interacted">
-        <h1>{userSelectedAttraction?.name}</h1>
-        {userSelectedAttraction?.name ? (
+        <h1>{userSelectedPick?.name}</h1>
+        {userSelectedPick?.name ? (
           <img
-            src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedAttraction?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+            src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedPick?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
             alt="attraction photo"
           />
         ) : (
@@ -24,9 +24,7 @@ export default function Explore() {
 
         <button
           onClick={() => {
-            setSavedAttractions([
-              ...new Set([...savedAttractions, userSelectedAttraction]),
-            ]);
+            setSavedPicks([...new Set([...savedPicks, userSelectedPick])]);
           }}
         >
           save pick
@@ -41,9 +39,9 @@ export default function Explore() {
 
         <div>description: </div>
         <ul>
-          <li>{`ratings & reviews: ${userSelectedAttraction?.rating} stars, ${userSelectedAttraction?.user_ratings_total} reviews`}</li>
+          <li>{`ratings & reviews: ${userSelectedPick?.rating} stars, ${userSelectedPick?.user_ratings_total} reviews`}</li>
           <li>price: </li>
-          <li>{`address: ${userSelectedAttraction?.formatted_address}`}</li>
+          <li>{`address: ${userSelectedPick?.formatted_address}`}</li>
           <li>hours: </li>
           <li>parking info: </li>
         </ul>
