@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppContextProvider({ children }) {
+  const [searchedPlaceID, setSearchedPlaceID] = useState("");
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
   const [searchedCity, setSearchedCity] = useState("");
@@ -14,6 +15,8 @@ export default function AppContextProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        searchedPlaceID,
+        setSearchedPlaceID,
         searchedLocationCoordinates,
         setSearchedLocationCoordinates,
         searchedCity,

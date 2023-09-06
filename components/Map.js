@@ -16,6 +16,8 @@ export default function Map() {
     directionsResponse,
     setDirectionsResponse,
     savedPicks,
+    searchedPlaceID,
+    setUserSelectedPick,
   } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
@@ -64,6 +66,14 @@ export default function Map() {
               scale: 2,
               strokeColor: "gold",
               strokeWeight: 2,
+            }}
+            onClick={async () => {
+              const searchedPlaceDetailsResponse = await fetch(
+                `api/googlePlaceDetails?placeID=${searchedPlaceID}`
+              );
+              const searchedPlaceDetails =
+                await searchedPlaceDetailsResponse.json();
+              setUserSelectedPick(searchedPlaceDetails.result);
             }}
           />
         )}
