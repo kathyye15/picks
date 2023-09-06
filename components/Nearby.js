@@ -10,8 +10,13 @@ export default function Nearby() {
         <MarkerF
           position={pick.geometry.location}
           key={pick.place_id}
-          onClick={() => {
-            setUserSelectedPick(pick);
+          onClick={async () => {
+            const searchedPlaceDetailsResponse = await fetch(
+              `api/googlePlaceDetails?placeID=${pick.place_id}`
+            );
+            const searchedPlaceDetails =
+              await searchedPlaceDetailsResponse.json();
+            setUserSelectedPick(searchedPlaceDetails.result);
           }}
         />
       ))}

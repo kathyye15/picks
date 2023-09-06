@@ -12,6 +12,7 @@ export default function PlacesAutocomplete() {
     setSearchedLocationCoordinates,
     setNearbyPicks,
     setSearchedCity,
+    setUserSelectedPick,
   } = useContext(AppContext);
 
   const {
@@ -22,7 +23,7 @@ export default function PlacesAutocomplete() {
     clearSuggestions,
   } = usePlacesAutocomplete();
 
-  const handleSelect = async (address, terms) => {
+  const handleSelect = async (placeID, address, terms) => {
     setValue(address, false);
     clearSuggestions();
 
@@ -33,9 +34,16 @@ export default function PlacesAutocomplete() {
     const city = terms.at(-3).value;
     setSearchedCity(city);
     const formattedCity = city.replace(/ /g, "+");
-    const response = await fetch(`api/google?city=${formattedCity}`);
-    const attractions = await response.json();
-    setNearbyPicks(attractions.results);
+    const nearbyPlacesResponse = await fetch(
+      `api/googlePlacesNearby?city=${formattedCity}`
+    );
+    const nearbyPlaces = await nearbyPlacesResponse.json();
+    setNearbyPicks(nearbyPlaces.results);
+    const searchedPlaceDetailsResponse = await fetch(
+      `api/googlePlaceDetails?placeID=${placeID}`
+    );
+    const searchedPlaceDetails = await searchedPlaceDetailsResponse.json();
+    setUserSelectedPick(searchedPlaceDetails.result);
   };
 
   const popover = (
@@ -45,7 +53,7 @@ export default function PlacesAutocomplete() {
           {data.map(({ place_id, description, terms }) => (
             <ListGroup.Item
               key={place_id}
-              onClick={() => handleSelect(description, terms)}
+              onClick={() => handleSelect(place_id, description, terms)}
             >
               <Link href="/picks">{description}</Link>
             </ListGroup.Item>
