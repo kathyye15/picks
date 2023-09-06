@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+export default function fetchPlacesNearby(req, res) {
   fetch(
     `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${req.query.city}+point+of+interest&language=en&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
   )
