@@ -11,7 +11,6 @@ export default function AppContextProvider({ children }) {
   const [savedPicks, setSavedPicks] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [inExploreView, setInExploreView] = useState(true);
-  const [interacted, setInteracted] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -29,8 +28,6 @@ export default function AppContextProvider({ children }) {
         setDirectionsResponse,
         inExploreView,
         setInExploreView,
-        interacted,
-        setInteracted,
       }}
     >
       {children}
