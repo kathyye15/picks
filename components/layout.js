@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Header from "./Header";
-import MyApp from "../contexts/AppContext";
+import AppContextProvider from "../contexts/AppContext";
 
 export default function Layout({ children }) {
   return (
@@ -8,10 +8,10 @@ export default function Layout({ children }) {
       <Head>
         <title>picks</title>
       </Head>
-      <MyApp>
+      <AppContextProvider>
         <Header />
         <main>{children}</main>
-      </MyApp>
+      </AppContextProvider>
     </>
   );
 }
