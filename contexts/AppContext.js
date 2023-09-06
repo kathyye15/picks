@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppContextProvider({ children }) {
+  const [searchedPlaceID, setSearchedPlaceID] = useState("");
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
   const [searchedCity, setSearchedCity] = useState("");
@@ -11,10 +12,11 @@ export default function AppContextProvider({ children }) {
   const [savedPicks, setSavedPicks] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [inExploreView, setInExploreView] = useState(true);
-  const [interacted, setInteracted] = useState(false);
   return (
     <AppContext.Provider
       value={{
+        searchedPlaceID,
+        setSearchedPlaceID,
         searchedLocationCoordinates,
         setSearchedLocationCoordinates,
         searchedCity,
@@ -29,8 +31,6 @@ export default function AppContextProvider({ children }) {
         setDirectionsResponse,
         inExploreView,
         setInExploreView,
-        interacted,
-        setInteracted,
       }}
     >
       {children}
