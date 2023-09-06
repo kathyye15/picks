@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 export const AppContext = createContext();
 
-export default function AppProvider({ children }) {
+export default function AppContextProvider({ children }) {
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
   const [searchedCity, setSearchedCity] = useState("");

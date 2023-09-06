@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useCallback, useMemo } from "react";
 import { AppContext } from "../../contexts/AppContext";
 
 export default function Explore() {
@@ -9,6 +9,23 @@ export default function Explore() {
     inExploreView,
     setInExploreView,
   } = useContext(AppContext);
+
+  const toggleSaveCallback = useCallback(() => {
+    if (saveButtonText === "save pick") {
+      setSavedPicks([...new Set([...savedPicks, userSelectedPick])]);
+    } else {
+      setSavedPicks(savedPicks.slice(0, savedPicks.length - 1));
+    }
+  }, [userSelectedPick, savedPicks]);
+
+  const saveButtonText = useMemo(() => {
+    return savedPicks?.find(
+      (pick) => pick.place_id === userSelectedPick.place_id
+    )
+      ? "saved"
+      : "save pick";
+  }, [userSelectedPick, savedPicks]);
+
   return (
     <div className="explore-sidebar">
       <div className="interacted">
@@ -22,13 +39,7 @@ export default function Explore() {
           <div>no image</div>
         )}
 
-        <button
-          onClick={() => {
-            setSavedPicks([...new Set([...savedPicks, userSelectedPick])]);
-          }}
-        >
-          save pick
-        </button>
+        <button onClick={toggleSaveCallback}>{saveButtonText}</button>
         <button
           onClick={() => {
             setInExploreView(!inExploreView);
