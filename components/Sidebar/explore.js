@@ -14,7 +14,9 @@ export default function Explore() {
     if (saveButtonText === "save pick") {
       setSavedPicks([...new Set([...savedPicks, userSelectedPick])]);
     } else {
-      setSavedPicks(savedPicks.slice(0, savedPicks.length - 1));
+      setSavedPicks(
+        savedPicks.filter((pick) => pick.place_id !== userSelectedPick.place_id)
+      );
     }
   }, [userSelectedPick, savedPicks]);
 
