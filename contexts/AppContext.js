@@ -4,6 +4,7 @@ export const AppContext = createContext();
 
 export default function AppContextProvider({ children }) {
   const [searchedPlaceID, setSearchedPlaceID] = useState("");
+  const [searchedPlaces, setSearchedPlaces] = useState([]);
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
   const [searchedCity, setSearchedCity] = useState("");
@@ -17,6 +18,8 @@ export default function AppContextProvider({ children }) {
       value={{
         searchedPlaceID,
         setSearchedPlaceID,
+        searchedPlaces,
+        setSearchedPlaces,
         searchedLocationCoordinates,
         setSearchedLocationCoordinates,
         searchedCity,
