@@ -2,22 +2,18 @@ import React, { useCallback, useMemo, useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 import {
   GoogleMap,
-  MarkerF,
   DirectionsService,
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
-import Nearby from "./Nearby";
+import Markers from "./Markers/Markers";
 
 export default function Map() {
   const {
     searchedLocationCoordinates,
-    nearbyPicks,
     directionsResponse,
     setDirectionsResponse,
     savedPicks,
-    searchedPlaceID,
-    setUserSelectedPick,
   } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
@@ -56,28 +52,7 @@ export default function Map() {
         center={searchedLocationCoordinates}
         mapContainerClassName="map-container"
       >
-        {searchedLocationCoordinates && (
-          <MarkerF
-            position={searchedLocationCoordinates}
-            icon={{
-              path: "M8 12l-4.7023 2.4721.898-5.236L.3916 5.5279l5.2574-.764L8 0l2.3511 4.764 5.2574.7639-3.8043 3.7082.898 5.236z",
-              fillColor: "yellow",
-              fillOpacity: 1,
-              scale: 2,
-              strokeColor: "gold",
-              strokeWeight: 2,
-            }}
-            onClick={async () => {
-              const searchedPlaceDetailsResponse = await fetch(
-                `api/googlePlaceDetails?placeID=${searchedPlaceID}`
-              );
-              const searchedPlaceDetails =
-                await searchedPlaceDetailsResponse.json();
-              setUserSelectedPick(searchedPlaceDetails.result);
-            }}
-          />
-        )}
-        {nearbyPicks && <Nearby />}
+        <Markers />
         {savedPicks.length > 1 && (
           <DirectionsService
             options={directionsServiceOptions}

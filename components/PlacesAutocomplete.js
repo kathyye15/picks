@@ -14,6 +14,8 @@ export default function PlacesAutocomplete() {
     setSearchedCity,
     setUserSelectedPick,
     setSearchedPlaceID,
+    setSearchedPlaces,
+    searchedPlaces,
   } = useContext(AppContext);
 
   const {
@@ -46,6 +48,7 @@ export default function PlacesAutocomplete() {
     );
     const searchedPlaceDetails = await searchedPlaceDetailsResponse.json();
     setUserSelectedPick(searchedPlaceDetails.result);
+    setSearchedPlaces([...searchedPlaces, searchedPlaceDetails.result]);
   };
 
   const popover = (
