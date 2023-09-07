@@ -14,6 +14,7 @@ export default function Map() {
     directionsResponse,
     setDirectionsResponse,
     savedPicks,
+    inExploreView,
   } = useContext(AppContext);
 
   const directionsServiceOptions = useMemo(() => {
@@ -52,14 +53,14 @@ export default function Map() {
         center={searchedLocationCoordinates}
         mapContainerClassName="map-container"
       >
-        <Markers />
-        {savedPicks.length > 1 && (
+        {inExploreView && <Markers />}
+        {!inExploreView && savedPicks.length > 1 && (
           <DirectionsService
             options={directionsServiceOptions}
             callback={directionsCallback}
           />
         )}
-        {directionsResponse && (
+        {!inExploreView && directionsResponse && (
           <DirectionsRenderer options={directionsResult} />
         )}
       </GoogleMap>
