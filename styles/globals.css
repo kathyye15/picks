@@ -3,15 +3,7 @@
   height: 100vh;
 }
 
-#currLocSearchButton {
-  color: green;
-}
-
 .search-input {
   width: 90%;
   padding: 0.5rem;
-}
-
-.sidebar {
-  border: 1px solid black;
 }
