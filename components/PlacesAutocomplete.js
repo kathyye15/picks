@@ -16,6 +16,7 @@ export default function PlacesAutocomplete() {
     setSearchedPlaceID,
     setSearchedPlaces,
     searchedPlaces,
+    setUserSelectedPickID,
   } = useContext(AppContext);
 
   const {
@@ -34,6 +35,7 @@ export default function PlacesAutocomplete() {
     const { lat, lng } = await getLatLng(results[0]);
     setSearchedLocationCoordinates({ lat, lng });
     setSearchedPlaceID(placeID);
+    setUserSelectedPickID(placeID);
     //TODO: add a test for city validity
     const city = terms.at(-3).value;
     setSearchedCity(city);
