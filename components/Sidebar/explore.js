@@ -1,4 +1,5 @@
-import { useContext, useCallback, useMemo } from "react";
+import useSWRImmutable from "swr/immutable";
+import { useContext, useCallback, useMemo, useEffect } from "react";
 import { AppContext } from "../../contexts/AppContext";
 import {
   Button,
@@ -14,11 +15,26 @@ import {
 export default function Explore() {
   const {
     userSelectedPick,
+    setUserSelectedPick,
+    userSelectedPickID,
     savedPicks,
     setSavedPicks,
     inExploreView,
     setInExploreView,
   } = useContext(AppContext);
+
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const { data: selectedPickDetails } = useSWRImmutable(
+    `api/googlePlaceDetails?placeID=${userSelectedPickID}`,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (selectedPickDetails) {
+      setUserSelectedPick(selectedPickDetails.result);
+    }
+  }, [selectedPickDetails, setUserSelectedPick]);
 
   const toggleSaveCallback = useCallback(() => {
     if (saveButtonText === "save pick") {
@@ -70,7 +86,6 @@ export default function Explore() {
         >
           toggle explore/saved view
         </Button>
-
         <UnorderedList>
           <ListItem>{`Ratings & Reviews: ${userSelectedPick?.rating} stars, ${userSelectedPick?.user_ratings_total} reviews`}</ListItem>
           <ListItem>
