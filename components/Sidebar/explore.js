@@ -1,5 +1,15 @@
 import { useContext, useCallback, useMemo } from "react";
 import { AppContext } from "../../contexts/AppContext";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Image,
+  ListItem,
+  UnorderedList,
+  Heading,
+} from "@chakra-ui/react";
 
 export default function Explore() {
   const {
@@ -29,71 +39,84 @@ export default function Explore() {
   }, [userSelectedPick, savedPicks]);
 
   return (
-    <div className="explore-sidebar">
-      <h1>{userSelectedPick?.name}</h1>
-      {userSelectedPick?.name ? (
-        <img
-          src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedPick?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-          alt="attraction photo"
-        />
-      ) : (
-        <div>no image</div>
-      )}
+    <Card className="explore-sidebar">
+      <CardBody>
+        <CardHeader color="brand.navy">
+          {" "}
+          <Heading size="md">{userSelectedPick?.name}</Heading>
+        </CardHeader>
+        {userSelectedPick?.name ? (
+          <Image
+            src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedPick?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+            alt="attraction photo"
+          />
+        ) : (
+          <div>no image</div>
+        )}
 
-      <button onClick={toggleSaveCallback}>{saveButtonText}</button>
-      <button
-        onClick={() => {
-          setInExploreView(!inExploreView);
-        }}
-      >
-        toggle explore/saved view
-      </button>
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          onClick={toggleSaveCallback}
+        >
+          {saveButtonText}
+        </Button>
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          onClick={() => {
+            setInExploreView(!inExploreView);
+          }}
+        >
+          toggle explore/saved view
+        </Button>
 
-      <ul>
-        <li>{`Ratings & Reviews: ${userSelectedPick?.rating} stars, ${userSelectedPick?.user_ratings_total} reviews`}</li>
-        <li>
-          Price:{" "}
-          {Number.isInteger(userSelectedPick?.price_level)
-            ? userSelectedPick.price_level === 0
-              ? "Free"
-              : "$".repeat(userSelectedPick.price_level)
-            : "Not available"}
-        </li>
-        <li>
-          Address: {userSelectedPick?.formatted_address || "Not available"}
-        </li>
-        <li>
-          Hours:
-          {userSelectedPick?.current_opening_hours?.weekday_text?.length ? (
-            <ul>
-              {userSelectedPick.current_opening_hours.weekday_text.map(
-                (daySchedule, index) => (
-                  <li key={index}>{daySchedule}</li>
-                )
-              )}
-            </ul>
-          ) : (
-            "Not available"
-          )}
-        </li>
-        <li>
-          Phone: {userSelectedPick?.formatted_phone_number || "Not available"}
-        </li>
-        <li>
-          Website:
-          {userSelectedPick?.website ? (
-            <a
-              href={userSelectedPick.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {userSelectedPick.website}
-            </a>
-          ) : (
-            "Not available"
-          )}
-        </li>
-      </ul>
-    </div>
+        <UnorderedList>
+          <ListItem>{`Ratings & Reviews: ${userSelectedPick?.rating} stars, ${userSelectedPick?.user_ratings_total} reviews`}</ListItem>
+          <ListItem>
+            Price:{" "}
+            {Number.isInteger(userSelectedPick?.price_level)
+              ? userSelectedPick.price_level === 0
+                ? "Free"
+                : "$".repeat(userSelectedPick.price_level)
+              : "Not available"}
+          </ListItem>
+          <ListItem>
+            Address: {userSelectedPick?.formatted_address || "Not available"}
+          </ListItem>
+          <ListItem>
+            Hours:
+            {userSelectedPick?.current_opening_hours?.weekday_text?.length ? (
+              <UnorderedList>
+                {userSelectedPick.current_opening_hours.weekday_text.map(
+                  (daySchedule, index) => (
+                    <ListItem key={index}>{daySchedule}</ListItem>
+                  )
+                )}
+              </UnorderedList>
+            ) : (
+              "Not available"
+            )}
+          </ListItem>
+          <ListItem>
+            Phone: {userSelectedPick?.formatted_phone_number || "Not available"}
+          </ListItem>
+          <ListItem>
+            Website:
+            {userSelectedPick?.website ? (
+              <a
+                href={userSelectedPick.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {userSelectedPick.website}
+              </a>
+            ) : (
+              "Not available"
+            )}
+          </ListItem>
+        </UnorderedList>
+      </CardBody>
+    </Card>
   );
 }
