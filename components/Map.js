@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import Markers from "./Markers/Markers";
+import { Flex, Box, HStack } from "@chakra-ui/react";
 
 export default function Map() {
   const {
@@ -43,27 +44,31 @@ export default function Map() {
   }, [directionsResponse]);
 
   return (
-    <>
-      <div className="places-container">
-        <span>change your picks location: </span>
-        <PlacesAutocomplete />
-      </div>
-      <GoogleMap
-        zoom={10}
-        center={searchedLocationCoordinates}
-        mapContainerClassName="map-container"
-      >
-        {inExploreView && <Markers />}
-        {!inExploreView && savedPicks.length > 1 && (
-          <DirectionsService
-            options={directionsServiceOptions}
-            callback={directionsCallback}
-          />
-        )}
-        {!inExploreView && directionsResponse && (
-          <DirectionsRenderer options={directionsResult} />
-        )}
-      </GoogleMap>
-    </>
+    <Flex direction={"column"}>
+      <Box>
+        <HStack>
+          <span>change your picks location: </span>
+          <PlacesAutocomplete />
+        </HStack>
+      </Box>
+      <Box flex="1">
+        <GoogleMap
+          zoom={10}
+          center={searchedLocationCoordinates}
+          mapContainerClassName="map-container"
+        >
+          {inExploreView && <Markers />}
+          {!inExploreView && savedPicks.length > 1 && (
+            <DirectionsService
+              options={directionsServiceOptions}
+              callback={directionsCallback}
+            />
+          )}
+          {!inExploreView && directionsResponse && (
+            <DirectionsRenderer options={directionsResult} />
+          )}
+        </GoogleMap>
+      </Box>
+    </Flex>
   );
 }
