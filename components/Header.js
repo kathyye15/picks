@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Flex, Box, HStack, Text } from "@chakra-ui/react";
+import { Flex, Box, HStack, Heading } from "@chakra-ui/react";
 
 export default function Header() {
   return (
@@ -15,9 +15,9 @@ export default function Header() {
           />
         </Box>
         <Box>
-          <Text fontSize="2xl" color="brand.navy" mt={7}>
+          <Heading fontSize="2xl" color="brand.navy" mt={7}>
             Picks
-          </Text>
+          </Heading>
         </Box>
       </HStack>
     </Flex>
