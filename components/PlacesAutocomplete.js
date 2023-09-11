@@ -52,25 +52,30 @@ export default function PlacesAutocomplete() {
   };
 
   return (
-    <Box position="relative">
+    <Box position="relative" w="70%">
       <Input
-        placeholder="search..."
-        type="text"
+        placeholder="type in location..."
+        type="search"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         isDisabled={!ready}
+        border="1px solid"
+        borderColor="gray.200"
+        background="gray.50"
+        borderRadius="full"
       />
       {status === "OK" && (
         <List
           position="absolute"
           top="100%"
-          left="5%"
           zIndex="1"
           backgroundColor="white"
           border="1px solid #ccc"
           borderRadius="0 0 4px 4px"
-          boxShadow="0 4px 8px rgba(0, 0, 0, 0.1)"
+          boxShadow="'0 0 2px black'"
+          maxH="200px"
           overflowY="auto"
+          width="100%"
         >
           {data.map(({ place_id, description, terms }) => (
             <ListItem
