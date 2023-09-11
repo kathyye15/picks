@@ -5,7 +5,7 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { OverlayTrigger, Popover, ListGroup } from "react-bootstrap";
+import { Input, List, ListItem, Box } from "@chakra-ui/react";
 
 export default function PlacesAutocomplete() {
   const {
@@ -51,40 +51,42 @@ export default function PlacesAutocomplete() {
     setSearchedPlaces([...searchedPlaces, searchedPlaceDetails.result]);
   };
 
-  const popover = (
-    <Popover id="popover-search-results">
-      <Popover.Body>
-        <ListGroup>
+  return (
+    <Box position="relative" w="70%">
+      <Input
+        placeholder="type in location..."
+        type="search"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        isDisabled={!ready}
+        border="1px solid"
+        borderColor="gray.200"
+        background="gray.50"
+        borderRadius="full"
+      />
+      {status === "OK" && (
+        <List
+          position="absolute"
+          top="100%"
+          zIndex="1"
+          backgroundColor="white"
+          border="1px solid #ccc"
+          borderRadius="0 0 4px 4px"
+          boxShadow="'0 0 2px black'"
+          maxH="200px"
+          overflowY="auto"
+          width="100%"
+        >
           {data.map(({ place_id, description, terms }) => (
-            <ListGroup.Item
+            <ListItem
               key={place_id}
               onClick={() => handleSelect(place_id, description, terms)}
             >
               <Link href="/picks">{description}</Link>
-            </ListGroup.Item>
+            </ListItem>
           ))}
-        </ListGroup>
-      </Popover.Body>
-    </Popover>
-  );
-
-  return (
-    <span id="searchbox">
-      <OverlayTrigger
-        trigger="click"
-        placement="bottom"
-        overlay={popover}
-        show={status === "OK" && value !== ""}
-      >
-        <input
-          className="search-input"
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          disabled={!ready}
-          placeholder="search..."
-        />
-      </OverlayTrigger>
-    </span>
+        </List>
+      )}
+    </Box>
   );
 }
