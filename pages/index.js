@@ -1,6 +1,6 @@
 import { useLoadScript } from "@react-google-maps/api";
 import PlacesAutocomplete from "../components/PlacesAutocomplete";
-import { Box, Img, Center } from "@chakra-ui/react";
+import { Box, Img, Center, Text, Stack } from "@chakra-ui/react";
 
 const libraries = ["places"];
 export default function Home() {
@@ -12,18 +12,22 @@ export default function Home() {
   return (
     <Box position="relative" width="100vw" height="100vh" overflow="hidden">
       <Img
-        src="/png/landingPage5.png"
+        src="/png/landingPage6.png"
         alt="picks landing page"
         width="100%"
         height="100%"
         objectFit="cover"
         zIndex="-1"
       />
-      <Center position="absolute" top="52%" right="67%">
-        <Box width="580px">
-          <PlacesAutocomplete />
-        </Box>
-      </Center>
+      <Stack position="absolute" top="28%" ml={20}>
+        <Text fontSize="5xl" color="brand.navy">
+          PICKS
+        </Text>
+        <Text fontSize="3xl" color="brand.navy">
+          FROM YOUR FAVORITE PLACE
+        </Text>
+        <PlacesAutocomplete />
+      </Stack>
     </Box>
   );
 }
