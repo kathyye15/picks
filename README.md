@@ -1,6 +1,8 @@
 # picks
 
 A web application that allows users to explore nearby "things to do" and save their picks to a personalized itinerary.
+![Untitled design](https://github.com/kathyye15/picks/assets/46610320/af55fd20-9992-4028-b295-8e1484cb9171)
+
 
 ## Technologies used:
 
@@ -12,6 +14,8 @@ A web application that allows users to explore nearby "things to do" and save th
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+
+**Note:** This application also utilizes the Google Maps JavaScript API and Google Places API to provide detailed place information, an autocomplete search bar feature, and interactive map functionality.
 
 ## How to get started
 
