@@ -1,7 +1,7 @@
 # picks
 
 A web application that allows users to explore nearby "things to do" and save their picks to a personalized itinerary.
-![Untitled design](https://github.com/kathyye15/picks/assets/46610320/af55fd20-9992-4028-b295-8e1484cb9171)
+![Picks App GIF Demo](https://github.com/kathyye15/picks/assets/46610320/af55fd20-9992-4028-b295-8e1484cb9171)
 
 
 ## Technologies used:
