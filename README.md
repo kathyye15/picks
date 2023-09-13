@@ -14,6 +14,7 @@ A web application that allows users to explore nearby attractions and save their
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-45ba4b?style=for-the-badge&logo=Playwright&logoColor=white)
 
 **Note:** This application utilizes the Google Maps JavaScript API and Google Places API to provide detailed place information, an autocomplete search bar feature, and interactive map functionality.
 
