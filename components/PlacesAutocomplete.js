@@ -78,12 +78,14 @@ export default function PlacesAutocomplete() {
           width="100%"
         >
           {data.map(({ place_id, description, terms }) => (
-            <ListItem
-              key={place_id}
-              onClick={() => handleSelect(place_id, description, terms)}
-            >
-              <Link href="/picks">{description}</Link>
-            </ListItem>
+            <Link href="/picks" key={place_id}>
+              <ListItem
+                key={place_id}
+                onClick={() => handleSelect(place_id, description, terms)}
+              >
+                {description}
+              </ListItem>
+            </Link>
           ))}
         </List>
       )}
