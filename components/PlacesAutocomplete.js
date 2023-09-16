@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
-import Link from "next/link";
+import NextLink from "next/link";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { Input, List, ListItem, Box } from "@chakra-ui/react";
+import { Input, List, ListItem, Box, Link } from "@chakra-ui/react";
 
 export default function PlacesAutocomplete() {
   const {
@@ -78,14 +78,16 @@ export default function PlacesAutocomplete() {
           width="100%"
         >
           {data.map(({ place_id, description, terms }) => (
-            <Link href="/picks" key={place_id}>
-              <ListItem
-                key={place_id}
-                onClick={() => handleSelect(place_id, description, terms)}
-              >
-                {description}
-              </ListItem>
-            </Link>
+            <NextLink href="/picks" key={place_id} passHref>
+              <Link>
+                <ListItem
+                  key={place_id}
+                  onClick={() => handleSelect(place_id, description, terms)}
+                >
+                  {description}
+                </ListItem>
+              </Link>
+            </NextLink>
           ))}
         </List>
       )}
