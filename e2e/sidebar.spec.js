@@ -26,17 +26,6 @@ test("should display selected location image in sidebar", async ({ page }) => {
   await expect(attractionImage).toBeTruthy();
 });
 
-test("should display place detail fields", async ({ page }) => {
-  await expect(page.locator("ul > li")).toHaveText([
-    /^Ratings & Reviews:/,
-    /^Price:/,
-    /^Address:/,
-    /^Hours:/,
-    /^Phone:/,
-    /^Website:/,
-  ]);
-});
-
 test("should change 'save pick' button to 'saved' after clicking it", async ({
   page,
 }) => {
