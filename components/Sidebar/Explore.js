@@ -11,8 +11,9 @@ import {
   UnorderedList,
   Heading,
   Link,
+  Text,
 } from "@chakra-ui/react";
-import { PhoneIcon } from "@chakra-ui/icons";
+import { PhoneIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Rating from "../../utils/Rating";
 
 export default function Explore() {
@@ -22,8 +23,6 @@ export default function Explore() {
     userSelectedPickID,
     savedPicks,
     setSavedPicks,
-    inExploreView,
-    setInExploreView,
   } = useContext(AppContext);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -56,9 +55,8 @@ export default function Explore() {
       ? "saved"
       : "save pick";
   }, [userSelectedPick, savedPicks]);
-
   return (
-    <Card className="explore-sidebar" maxW="md" variant="filled">
+    <Card className="explore-sidebar" variant="filled">
       <CardBody>
         <CardHeader color="brand.navy">
           {" "}
@@ -67,7 +65,7 @@ export default function Explore() {
         {userSelectedPick?.name ? (
           <Image
             src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedPick?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-            alt="attraction photo"
+            alt={`photo of ${userSelectedPick?.name || "selected pick"}`}
             borderRadius="lg"
             w="100%"
             h="300px"
@@ -76,22 +74,13 @@ export default function Explore() {
         ) : (
           <div>no image</div>
         )}
-
+        <Text>{userSelectedPick?.editorial_summary?.overview}</Text>
         <Button
           colorScheme="blue"
-          variant="outline"
+          variant={saveButtonText === "save pick" ? "outline" : "solid"}
           onClick={toggleSaveCallback}
         >
           {saveButtonText}
-        </Button>
-        <Button
-          colorScheme="blue"
-          variant="outline"
-          onClick={() => {
-            setInExploreView(!inExploreView);
-          }}
-        >
-          toggle explore/saved view
         </Button>
         <UnorderedList styleType="none">
           <ListItem>
@@ -124,7 +113,8 @@ export default function Explore() {
             )}
           </ListItem>
           <ListItem>
-            <PhoneIcon />{" "}
+            <PhoneIcon />
+            {" : "}
             {userSelectedPick?.formatted_phone_number || "Not available"}
           </ListItem>
           <ListItem>
@@ -135,8 +125,9 @@ export default function Explore() {
                 target="_blank"
                 rel="noopener noreferrer"
                 color="teal.500"
+                isExternal
               >
-                {userSelectedPick.website}
+                {userSelectedPick.website} <ExternalLinkIcon />
               </Link>
             ) : (
               "Not available"
