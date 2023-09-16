@@ -6,9 +6,7 @@ export default function Picks() {
   return (
     <Flex>
       <Box w="35%">
-        <Center>
-          <Sidebar />
-        </Center>
+        <Sidebar />
       </Box>
       <Box w="65%">
         <Map />
