@@ -45,12 +45,7 @@ export default function Map() {
 
   return (
     <Flex direction={"column"}>
-      <Box>
-        <HStack>
-          <span>change your picks location: </span>
-          <PlacesAutocomplete />
-        </HStack>
-      </Box>
+      <PlacesAutocomplete />
       <Box flex="1">
         <GoogleMap
           zoom={10}
