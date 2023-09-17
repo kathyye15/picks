@@ -60,7 +60,6 @@ export default function PlacesAutocomplete() {
     setUserSelectedPick(searchedPlaceDetails.result);
     setSearchedPlaces([...searchedPlaces, searchedPlaceDetails.result]);
   };
-
   return (
     <Box position="relative" w="70%">
       <InputGroup>
@@ -76,7 +75,10 @@ export default function PlacesAutocomplete() {
           border="1px solid"
           borderColor="gray.200"
           background="gray.50"
-          borderRadius="full"
+          borderTopLeftRadius="20px"
+          borderTopRightRadius="20px"
+          borderBottomLeftRadius={data.length ? "0px" : "20px"}
+          borderBottomRightRadius={data.length ? "0px" : "20px"}
         />
       </InputGroup>
       {status === "OK" && (
@@ -84,7 +86,7 @@ export default function PlacesAutocomplete() {
           position="absolute"
           top="100%"
           zIndex="1"
-          backgroundColor="white"
+          backgroundColor="gray.50"
           borderWidth="1px"
           borderColor="gray.200"
           borderBottomRadius="4px"
@@ -99,6 +101,7 @@ export default function PlacesAutocomplete() {
                 <ListItem
                   key={place_id}
                   onClick={() => handleSelect(place_id, description, terms)}
+                  _hover={{ background: "gray.200" }}
                 >
                   {description}
                 </ListItem>
