@@ -71,6 +71,7 @@ export default function PlacesAutocomplete() {
           type="search"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onFocus={(e) => setValue(e.target.value)}
           isDisabled={!ready}
           border="1px solid"
           borderColor="gray.200"
