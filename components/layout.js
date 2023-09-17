@@ -6,7 +6,8 @@ export default function Layout({ children }) {
   return (
     <>
       <Head>
-        <title>picks</title>
+        <link rel="icon" href="/png/picksIcon.png" type="image/png" />
+        <title>PICKS</title>
       </Head>
       <AppContextProvider>
         <Header />
