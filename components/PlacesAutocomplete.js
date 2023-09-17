@@ -5,7 +5,16 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { Input, List, ListItem, Box, Link } from "@chakra-ui/react";
+import {
+  Input,
+  List,
+  ListItem,
+  Box,
+  Link,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
 
 export default function PlacesAutocomplete() {
   const {
@@ -16,6 +25,7 @@ export default function PlacesAutocomplete() {
     setSearchedPlaces,
     searchedPlaces,
     setUserSelectedPickID,
+    setInExploreView,
   } = useContext(AppContext);
 
   const {
@@ -29,7 +39,7 @@ export default function PlacesAutocomplete() {
   const handleSelect = async (placeID, address, terms) => {
     setValue(address, false);
     clearSuggestions();
-
+    setInExploreView(true);
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSearchedLocationCoordinates({ lat, lng });
@@ -53,25 +63,31 @@ export default function PlacesAutocomplete() {
 
   return (
     <Box position="relative" w="70%">
-      <Input
-        placeholder="type in location..."
-        type="search"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        isDisabled={!ready}
-        border="1px solid"
-        borderColor="gray.200"
-        background="gray.50"
-        borderRadius="full"
-      />
+      <InputGroup>
+        <InputLeftElement pointerEvents="none">
+          <Search2Icon color="gray.400" />
+        </InputLeftElement>
+        <Input
+          placeholder="type in location..."
+          type="search"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          isDisabled={!ready}
+          border="1px solid"
+          borderColor="gray.200"
+          background="gray.50"
+          borderRadius="full"
+        />
+      </InputGroup>
       {status === "OK" && (
         <List
           position="absolute"
           top="100%"
           zIndex="1"
           backgroundColor="white"
-          border="1px solid #ccc"
-          borderRadius="0 0 4px 4px"
+          borderWidth="1px"
+          borderColor="gray.200"
+          borderBottomRadius="4px"
           boxShadow="'0 0 2px black'"
           maxH="200px"
           overflowY="auto"
