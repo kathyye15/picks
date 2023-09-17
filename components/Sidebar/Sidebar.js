@@ -12,7 +12,8 @@ import {
 } from "@chakra-ui/react";
 
 export default function Sidebar() {
-  const { setInExploreView, searchedCity } = useContext(AppContext);
+  const { inExploreView, setInExploreView, searchedCity } =
+    useContext(AppContext);
   return (
     <>
       <Heading
@@ -24,8 +25,7 @@ export default function Sidebar() {
         className="sidebar"
         size="md"
         variant="enclosed"
-        defaultIndex={0}
-        isLazy
+        index={inExploreView ? 0 : 1}
       >
         <TabList>
           <Tab
