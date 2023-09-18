@@ -10,7 +10,11 @@ import {
   ListItem,
   UnorderedList,
   Heading,
+  Link,
+  Text,
 } from "@chakra-ui/react";
+import { PhoneIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import Rating from "../../utils/Rating";
 
 export default function Explore() {
   const {
@@ -19,8 +23,6 @@ export default function Explore() {
     userSelectedPickID,
     savedPicks,
     setSavedPicks,
-    inExploreView,
-    setInExploreView,
   } = useContext(AppContext);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -53,41 +55,38 @@ export default function Explore() {
       ? "saved"
       : "save pick";
   }, [userSelectedPick, savedPicks]);
-
   return (
-    <Card className="explore-sidebar">
+    <Card className="explore-sidebar" variant="filled">
       <CardBody>
         <CardHeader color="brand.navy">
           {" "}
-          <Heading size="md">{userSelectedPick?.name}</Heading>
+          <Heading size="lg">{userSelectedPick?.name}</Heading>
         </CardHeader>
         {userSelectedPick?.name ? (
           <Image
             src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${userSelectedPick?.photos?.[0]?.photo_reference}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-            alt="attraction photo"
+            alt={`photo of ${userSelectedPick?.name || "selected pick"}`}
+            borderRadius="lg"
+            w="100%"
+            h="300px"
+            objectFit="cover"
           />
         ) : (
           <div>no image</div>
         )}
-
+        <Text>{userSelectedPick?.editorial_summary?.overview}</Text>
         <Button
           colorScheme="blue"
-          variant="outline"
+          variant={saveButtonText === "save pick" ? "outline" : "solid"}
           onClick={toggleSaveCallback}
         >
           {saveButtonText}
         </Button>
-        <Button
-          colorScheme="blue"
-          variant="outline"
-          onClick={() => {
-            setInExploreView(!inExploreView);
-          }}
-        >
-          toggle explore/saved view
-        </Button>
-        <UnorderedList>
-          <ListItem>{`Ratings & Reviews: ${userSelectedPick?.rating} stars, ${userSelectedPick?.user_ratings_total} reviews`}</ListItem>
+        <UnorderedList styleType="none">
+          <ListItem>
+            <Rating rating={userSelectedPick?.rating} />
+            {` ${userSelectedPick?.user_ratings_total} reviews`}
+          </ListItem>
           <ListItem>
             Price:{" "}
             {Number.isInteger(userSelectedPick?.price_level)
@@ -102,7 +101,7 @@ export default function Explore() {
           <ListItem>
             Hours:
             {userSelectedPick?.current_opening_hours?.weekday_text?.length ? (
-              <UnorderedList>
+              <UnorderedList styleType="none">
                 {userSelectedPick.current_opening_hours.weekday_text.map(
                   (daySchedule, index) => (
                     <ListItem key={index}>{daySchedule}</ListItem>
@@ -114,18 +113,22 @@ export default function Explore() {
             )}
           </ListItem>
           <ListItem>
-            Phone: {userSelectedPick?.formatted_phone_number || "Not available"}
+            <PhoneIcon />
+            {" : "}
+            {userSelectedPick?.formatted_phone_number || "Not available"}
           </ListItem>
           <ListItem>
-            Website:
+            Website:{" "}
             {userSelectedPick?.website ? (
-              <a
+              <Link
                 href={userSelectedPick.website}
                 target="_blank"
                 rel="noopener noreferrer"
+                color="teal.500"
+                isExternal
               >
-                {userSelectedPick.website}
-              </a>
+                {userSelectedPick.website} <ExternalLinkIcon />
+              </Link>
             ) : (
               "Not available"
             )}

@@ -4,21 +4,19 @@ import { Flex, Box, HStack, Heading } from "@chakra-ui/react";
 
 export default function Header() {
   return (
-    <Flex bg="brand.cadetGray" minWidth="max-content">
-      <HStack>
-        <Box p="2">
+    <Flex bg="brand.cadetGray" minWidth="max-content" height="60px">
+      <HStack spacing="1">
+        <Box pl="5">
           <Image
-            src="/svg/picksIcon.svg"
+            src="/png/picksIcon.png"
             alt="picks icon"
-            width={50}
-            height={50}
+            width={41}
+            height={80}
           />
         </Box>
-        <Box>
-          <Heading fontSize="2xl" color="brand.navy" mt={7}>
-            Picks
-          </Heading>
-        </Box>
+        <Heading fontSize="3xl" color="brand.navy" mt={4}>
+          Picks
+        </Heading>
       </HStack>
     </Flex>
   );
