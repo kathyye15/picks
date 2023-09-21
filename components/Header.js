@@ -4,7 +4,7 @@ import { Flex, Box, HStack, Heading } from "@chakra-ui/react";
 
 export default function Header() {
   return (
-    <Flex bg="brand.cadetGray" minWidth="max-content" height="60px">
+    <Flex bg="brand.cadetGray" minWidth="max-content" height="8vh">
       <HStack spacing="1">
         <Box pl="5">
           <Image

@@ -10,7 +10,7 @@ export default function Home() {
   });
   if (!isLoaded) return <h1>loading........</h1>;
   return (
-    <Box position="relative" width="100vw" height="100vh" overflow="hidden">
+    <Box position="relative" width="100%" height="92vh">
       <Img
         src="/png/landingPage6.png"
         alt="picks landing page"
