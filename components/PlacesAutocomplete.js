@@ -97,17 +97,15 @@ export default function PlacesAutocomplete() {
           width="100%"
         >
           {data.map(({ place_id, description, terms }) => (
-            <NextLink href="/picks" key={place_id} passHref>
-              <Link>
-                <ListItem
-                  key={place_id}
-                  onClick={() => handleSelect(place_id, description, terms)}
-                  _hover={{ background: "gray.200" }}
-                >
-                  {description}
-                </ListItem>
-              </Link>
-            </NextLink>
+            <Link as={NextLink} href="/picks" key={place_id}>
+              <ListItem
+                key={place_id}
+                onClick={() => handleSelect(place_id, description, terms)}
+                _hover={{ background: "gray.200" }}
+              >
+                {description}
+              </ListItem>
+            </Link>
           ))}
         </List>
       )}
