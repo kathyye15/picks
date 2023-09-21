@@ -30,7 +30,6 @@ export default function Sidebar() {
         <TabList>
           <Tab
             onClick={(ev) => {
-              console.log(ev.target.textContent);
               setInExploreView(ev.target.textContent === "Explore");
             }}
           >
@@ -38,7 +37,6 @@ export default function Sidebar() {
           </Tab>
           <Tab
             onClick={(ev) => {
-              console.log(ev.target.textContent);
               setInExploreView(ev.target.textContent === "Explore");
             }}
           >
