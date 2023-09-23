@@ -4,10 +4,12 @@ import {
   GoogleMap,
   DirectionsService,
   DirectionsRenderer,
+  OverlayViewF,
+  OverlayView,
 } from "@react-google-maps/api";
 import PlacesAutocomplete from "./PlacesAutocomplete";
 import Markers from "./Markers/Markers";
-import { Flex, Box, HStack } from "@chakra-ui/react";
+import { Flex, Box, Card, CardBody } from "@chakra-ui/react";
 
 export default function Map() {
   const {
@@ -62,6 +64,24 @@ export default function Map() {
           {!inExploreView && directionsResponse && (
             <DirectionsRenderer options={directionsResult} />
           )}
+          {!inExploreView &&
+            directionsResponse?.routes?.[0]?.legs?.length &&
+            directionsResponse.routes[0].legs.map((leg, index) => (
+              <OverlayViewF
+                key={index}
+                position={
+                  leg.steps[Math.floor(leg.steps.length / 2)].start_location
+                }
+                mapPaneName={OverlayView.OVERLAY_LAYER}
+              >
+                <Card size="sm">
+                  <CardBody>
+                    <h1>{leg.distance.text}</h1>
+                    <h1>{leg.duration.text}</h1>
+                  </CardBody>
+                </Card>
+              </OverlayViewF>
+            ))}
         </GoogleMap>
       </Box>
     </Flex>
