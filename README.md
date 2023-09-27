@@ -23,7 +23,7 @@ A web application that allows users to explore nearby attractions and save their
 Create a `.env.local` file containing your Google API key:
 
 ```
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="your api key here"
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_api_key_here
 ```
 
 Run the following:
