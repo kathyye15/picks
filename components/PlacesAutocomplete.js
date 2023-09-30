@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -26,6 +27,8 @@ export default function PlacesAutocomplete() {
     searchedPlaces,
     setUserSelectedPickID,
     setInExploreView,
+    selectedSearchbarPlaceIndex,
+    setSelectedSearchbarPlaceIndex,
   } = useContext(AppContext);
 
   const {
@@ -35,6 +38,8 @@ export default function PlacesAutocomplete() {
     suggestions: { status, data },
     clearSuggestions,
   } = usePlacesAutocomplete();
+
+  const router = useRouter();
 
   const handleSelect = async (placeID, address, terms) => {
     setValue(address, false);
@@ -60,6 +65,30 @@ export default function PlacesAutocomplete() {
     setUserSelectedPick(searchedPlaceDetails.result);
     setSearchedPlaces([...searchedPlaces, searchedPlaceDetails.result]);
   };
+
+  const handleKeyDown = (e) => {
+    if (!data.length) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const newIndex = (selectedSearchbarPlaceIndex + 1) % data.length;
+      setSelectedSearchbarPlaceIndex(newIndex);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const newIndex =
+        (selectedSearchbarPlaceIndex - 1 + data.length) % data.length;
+      setSelectedSearchbarPlaceIndex(newIndex);
+    } else if (e.key === "Enter" && selectedSearchbarPlaceIndex !== -1) {
+      const selectedPlace = data[selectedSearchbarPlaceIndex];
+      handleSelect(
+        selectedPlace.place_id,
+        selectedPlace.description,
+        selectedPlace.terms
+      );
+      router.push("/picks");
+    }
+  };
+
   return (
     <Box position="relative" w="70%">
       <InputGroup>
@@ -70,7 +99,10 @@ export default function PlacesAutocomplete() {
           placeholder="type in location..."
           type="search"
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setSelectedSearchbarPlaceIndex(-1);
+          }}
           onFocus={(e) => setValue(e.target.value)}
           isDisabled={!ready}
           border="1px solid"
@@ -80,6 +112,7 @@ export default function PlacesAutocomplete() {
           borderTopRightRadius="20px"
           borderBottomLeftRadius={data.length ? "0px" : "20px"}
           borderBottomRightRadius={data.length ? "0px" : "20px"}
+          onKeyDown={(e) => handleKeyDown(e)}
         />
       </InputGroup>
       {status === "OK" && (
@@ -92,16 +125,19 @@ export default function PlacesAutocomplete() {
           borderColor="gray.200"
           borderBottomRadius="4px"
           boxShadow="'0 0 2px black'"
-          maxH="200px"
-          overflowY="auto"
           width="100%"
         >
-          {data.map(({ place_id, description, terms }) => (
-            <Link as={NextLink} href="/picks" key={place_id}>
+          {data.map(({ place_id, description, terms }, index) => (
+            <Link as={NextLink} href="/picks" key={place_id} index={index}>
               <ListItem
                 key={place_id}
                 onClick={() => handleSelect(place_id, description, terms)}
                 _hover={{ background: "gray.200" }}
+                bg={
+                  selectedSearchbarPlaceIndex === index
+                    ? "gray.200"
+                    : "transparent"
+                }
               >
                 {description}
               </ListItem>
