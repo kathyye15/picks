@@ -3,7 +3,6 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export default function AppContextProvider({ children }) {
-
   const [searchedPlaces, setSearchedPlaces] = useState([]);
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
@@ -14,6 +13,8 @@ export default function AppContextProvider({ children }) {
   const [savedPicks, setSavedPicks] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [inExploreView, setInExploreView] = useState(true);
+  const [selectedSearchbarPlaceIndex, setSelectedSearchbarPlaceIndex] =
+    useState(-1);
   return (
     <AppContext.Provider
       value={{
@@ -35,6 +36,8 @@ export default function AppContextProvider({ children }) {
         setDirectionsResponse,
         inExploreView,
         setInExploreView,
+        selectedSearchbarPlaceIndex,
+        setSelectedSearchbarPlaceIndex,
       }}
     >
       {children}
