@@ -15,6 +15,7 @@ export default function AppContextProvider({ children }) {
   const [inExploreView, setInExploreView] = useState(true);
   const [selectedSearchbarPlaceIndex, setSelectedSearchbarPlaceIndex] =
     useState(-1);
+  const [isMapReady, setIsMapReady] = useState(false);
   return (
     <AppContext.Provider
       value={{
@@ -38,6 +39,8 @@ export default function AppContextProvider({ children }) {
         setInExploreView,
         selectedSearchbarPlaceIndex,
         setSelectedSearchbarPlaceIndex,
+        isMapReady,
+        setIsMapReady,
       }}
     >
       {children}

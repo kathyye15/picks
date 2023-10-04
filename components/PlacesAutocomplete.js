@@ -29,6 +29,7 @@ export default function PlacesAutocomplete() {
     setInExploreView,
     selectedSearchbarPlaceIndex,
     setSelectedSearchbarPlaceIndex,
+    setIsMapReady,
   } = useContext(AppContext);
 
   const {
@@ -45,6 +46,7 @@ export default function PlacesAutocomplete() {
     setValue(address, false);
     clearSuggestions();
     setInExploreView(true);
+    setIsMapReady(true);
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSearchedLocationCoordinates({ lat, lng });
