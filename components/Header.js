@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { Flex, Box, HStack, Heading } from "@chakra-ui/react";
 
@@ -14,9 +14,11 @@ export default function Header() {
             height={80}
           />
         </Box>
-        <Heading fontSize="3xl" color="brand.navy" mt={4}>
-          Picks
-        </Heading>
+        <Link href="/">
+          <Heading fontSize="3xl" color="brand.navy" mt={4}>
+            Picks
+          </Heading>
+        </Link>
       </HStack>
     </Flex>
   );
