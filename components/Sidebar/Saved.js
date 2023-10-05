@@ -23,6 +23,7 @@ export default function Saved() {
         {savedPicks.map((pick, index) => (
           <Card
             key={pick.place_id}
+            id={pick.place_id}
             variant="filled"
             w="100%"
             h="248px"
@@ -37,12 +38,14 @@ export default function Saved() {
               ev.preventDefault();
               const placeData = ev.dataTransfer.getData("text/plain");
               const draggedPlace = JSON.parse(placeData);
-              const draggedIndex = savedPicks.findIndex(
-                (place) => place.place_id === draggedPlace.place_id
-              );
-              const updatedPicks = savedPicks.toSpliced(draggedIndex, 1);
-              updatedPicks.splice(index, 0, draggedPlace);
-              setSavedPicks(updatedPicks);
+              if (draggedPlace.place_id !== ev.target.id) {
+                const draggedIndex = savedPicks.findIndex(
+                  (place) => place.place_id === draggedPlace.place_id
+                );
+                const updatedPicks = savedPicks.toSpliced(draggedIndex, 1);
+                updatedPicks.splice(index, 0, draggedPlace);
+                setSavedPicks(updatedPicks);
+              }
             }}
           >
             {" "}
