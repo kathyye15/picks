@@ -14,7 +14,7 @@ export default function AppContextProvider({ children }) {
   const [directionsResponse, setDirectionsResponse] = useState(null);
   const [inExploreView, setInExploreView] = useState(true);
   const [selectedSearchbarPlaceIndex, setSelectedSearchbarPlaceIndex] =
-    useState(-1);
+    useState(0);
   const [isMapReady, setIsMapReady] = useState(false);
   return (
     <AppContext.Provider
