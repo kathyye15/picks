@@ -80,7 +80,7 @@ export default function PlacesAutocomplete() {
       const newIndex =
         (selectedSearchbarPlaceIndex - 1 + data.length) % data.length;
       setSelectedSearchbarPlaceIndex(newIndex);
-    } else if (e.key === "Enter" && selectedSearchbarPlaceIndex !== -1) {
+    } else if (e.key === "Enter") {
       const selectedPlace = data[selectedSearchbarPlaceIndex];
       handleSelect(
         selectedPlace.place_id,
@@ -103,7 +103,7 @@ export default function PlacesAutocomplete() {
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
-            setSelectedSearchbarPlaceIndex(-1);
+            setSelectedSearchbarPlaceIndex(0);
           }}
           onFocus={(e) => setValue(e.target.value)}
           isDisabled={!ready}
