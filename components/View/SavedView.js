@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useContext } from "react";
 import { AppContext } from "../../contexts/AppContext";
+import SavedMarker from "../Markers/SavedMarker";
 import {
   DirectionsService,
   DirectionsRenderer,
@@ -36,31 +37,35 @@ export default function SavedView() {
     };
   }, [directionsResponse]);
 
-  return (
-    <>
-      <DirectionsService
-        options={directionsServiceOptions}
-        callback={directionsCallback}
-      />
-      <DirectionsRenderer options={directionsResult} />
-      {directionsResponse?.routes?.[0]?.legs?.length
-        ? directionsResponse.routes[0].legs.map((leg, index) => (
-            <OverlayViewF
-              key={index}
-              position={
-                leg.steps[Math.floor(leg.steps.length / 2)].start_location
-              }
-              mapPaneName={OverlayView.OVERLAY_LAYER}
-            >
-              <Card size="sm">
-                <CardBody>
-                  <h1>{leg.distance.text}</h1>
-                  <h1>{leg.duration.text}</h1>
-                </CardBody>
-              </Card>
-            </OverlayViewF>
-          ))
-        : null}
-    </>
-  );
+  if (savedPicks.length > 1) {
+    return (
+      <>
+        <DirectionsService
+          options={directionsServiceOptions}
+          callback={directionsCallback}
+        />
+        <DirectionsRenderer options={directionsResult} />
+        {directionsResponse?.routes?.[0]?.legs?.length
+          ? directionsResponse.routes[0].legs.map((leg, index) => (
+              <OverlayViewF
+                key={index}
+                position={
+                  leg.steps[Math.floor(leg.steps.length / 2)].start_location
+                }
+                mapPaneName={OverlayView.OVERLAY_LAYER}
+              >
+                <Card size="sm">
+                  <CardBody>
+                    <h1>{leg.distance.text}</h1>
+                    <h1>{leg.duration.text}</h1>
+                  </CardBody>
+                </Card>
+              </OverlayViewF>
+            ))
+          : null}
+      </>
+    );
+  } else {
+    return <SavedMarker />;
+  }
 }
