@@ -22,11 +22,11 @@ export default function LoginModal({ isOpen, onClose }) {
         <ModalBody pb={6}>
           <FormControl isRequired mt={3}>
             <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <Input type="email" placeholder="Email address" />
           </FormControl>
           <FormControl isRequired mt={3}>
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input type="password" placeholder="Password" />
           </FormControl>
         </ModalBody>
 
