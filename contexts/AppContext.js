@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 export const AppContext = createContext();
 
@@ -6,9 +6,9 @@ export default function AppContextProvider({ children }) {
   const [searchedPlaces, setSearchedPlaces] = useState([]);
   const [searchedLocationCoordinates, setSearchedLocationCoordinates] =
     useState(null);
-  const [searchedCity, setSearchedCity] = useState("");
+  const [searchedCity, setSearchedCity] = useState('');
   const [userSelectedPick, setUserSelectedPick] = useState({});
-  const [userSelectedPickID, setUserSelectedPickID] = useState("");
+  const [userSelectedPickID, setUserSelectedPickID] = useState('');
   const [nearbyPicks, setNearbyPicks] = useState([]);
   const [savedPicks, setSavedPicks] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState(null);
@@ -16,6 +16,7 @@ export default function AppContextProvider({ children }) {
   const [selectedSearchbarPlaceIndex, setSelectedSearchbarPlaceIndex] =
     useState(0);
   const [isMapReady, setIsMapReady] = useState(false);
+  const [modalType, setModalType] = useState(null);
   return (
     <AppContext.Provider
       value={{
@@ -41,6 +42,8 @@ export default function AppContextProvider({ children }) {
         setSelectedSearchbarPlaceIndex,
         isMapReady,
         setIsMapReady,
+        modalType,
+        setModalType,
       }}
     >
       {children}

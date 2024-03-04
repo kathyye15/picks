@@ -1,6 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Flex, Box, HStack, Heading } from "@chakra-ui/react";
+import Link from 'next/link';
+import Image from 'next/image';
+import LoginAndSignUp from './Auth/LoginAndSignUp';
+import { Flex, Box, HStack, Heading, Spacer } from '@chakra-ui/react';
 
 export default function Header() {
   return (
@@ -20,6 +21,8 @@ export default function Header() {
           </Heading>
         </Link>
       </HStack>
+      <Spacer />
+      <LoginAndSignUp />
     </Flex>
   );
 }
