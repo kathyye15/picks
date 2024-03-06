@@ -12,6 +12,13 @@
 /.next/
 /out/
 
+#firebase
+firebase-config.js
+firebase-debug.log
+ui-debug.log
+firebase.json
+.firebaserc
+
 # production
 /build
 

@@ -1,9 +1,12 @@
-import { useLoadScript } from "@react-google-maps/api";
-import PlacesAutocomplete from "../components/PlacesAutocomplete";
-import { Box, Img, Center, Text, Stack } from "@chakra-ui/react";
+import { useLoadScript } from '@react-google-maps/api';
+import PlacesAutocomplete from '../components/PlacesAutocomplete';
+import { Box, Img, Text, Stack } from '@chakra-ui/react';
+import { auth } from '../firebase-config';
+import { connectAuthEmulator } from 'firebase/auth';
 
-const libraries = ["places"];
+const libraries = ['places'];
 export default function Home() {
+  connectAuthEmulator(auth, 'http://localhost:9099');
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     libraries: libraries,

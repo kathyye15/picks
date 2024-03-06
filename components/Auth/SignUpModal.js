@@ -7,52 +7,73 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  FormControl,
   FormLabel,
   Input,
   HStack,
 } from '@chakra-ui/react';
+import { auth } from '../../firebase-config';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import formatErrorCodeToMessage from '../../utils/Auth/formatErrorCodeToMessage';
 
+const createAccount = async (event) => {
+  event.preventDefault();
+  const signupFirstName = event.target['first-name'].value;
+  const signupLastName = event.target['last-name'].value;
+  const signupEmail = event.target.email.value;
+  const signupPassword = event.target.password.value;
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      signupEmail,
+      signupPassword
+    );
+    updateProfile(auth.currentUser, {
+      displayName: `${signupFirstName} ${signupLastName}`,
+    });
+    console.log(auth.currentUser);
+  } catch (error) {
+    let errorMessage = formatErrorCodeToMessage(error.code);
+    console.log(errorMessage);
+  }
+};
 export default function SignUpModal({ isOpen, onClose }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Create your account.</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <HStack spacing={2}>
-            <FormControl isRequired>
-              <FormLabel>First name</FormLabel>
-              <Input placeholder="First name" />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Last name</FormLabel>
-              <Input placeholder="Last name" />
-            </FormControl>
-          </HStack>
-          <FormControl isRequired mt={3}>
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" placeholder="Email address" />
-          </FormControl>
-          <FormControl isRequired mt={3}>
-            <FormLabel>Password</FormLabel>
+      <form onSubmit={createAccount}>
+        <ModalContent>
+          <ModalHeader>Create your account.</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <HStack spacing={2}>
+              <FormLabel htmlFor="first-name">First name</FormLabel>
+              <Input id="first-name" placeholder="First name" />
+
+              <FormLabel htmlFor="last-name">Last name</FormLabel>
+              <Input id="last-name" placeholder="Last name" />
+            </HStack>
+
+            <FormLabel htmlFor="email">Email address</FormLabel>
+            <Input id="email" type="email" placeholder="Email address" />
+
+            <FormLabel htmlFor="password">Password</FormLabel>
             <Input
+              id="password"
               type="password"
               placeholder="Must be at least 8 characters"
-              minlength="8"
+              minLength="8"
               required
             />
-          </FormControl>
-        </ModalBody>
+          </ModalBody>
 
-        <ModalFooter>
-          <Button colorScheme="blue" mr={3}>
-            Save
-          </Button>
-          <Button onClick={onClose}>Cancel</Button>
-        </ModalFooter>
-      </ModalContent>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} type="submit">
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </form>
     </Modal>
   );
 }
