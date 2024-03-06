@@ -11,6 +11,9 @@ import {
   Input,
   HStack,
 } from '@chakra-ui/react';
+import { auth } from '../../firebase-config';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import formatErrorCodeToMessage from '../../utils/Auth/formatErrorCodeToMessage';
 
 const createAccount = async (event) => {
   event.preventDefault();
@@ -18,7 +21,20 @@ const createAccount = async (event) => {
   const signupLastName = event.target['last-name'].value;
   const signupEmail = event.target.email.value;
   const signupPassword = event.target.password.value;
-  console.log(signupFirstName, signupLastName, signupEmail, signupPassword);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      signupEmail,
+      signupPassword
+    );
+    updateProfile(auth.currentUser, {
+      displayName: `${signupFirstName} ${signupLastName}`,
+    });
+    console.log(auth.currentUser);
+  } catch (error) {
+    let errorMessage = formatErrorCodeToMessage(error.code);
+    console.log(errorMessage);
+  }
 };
 export default function SignUpModal({ isOpen, onClose }) {
   return (
