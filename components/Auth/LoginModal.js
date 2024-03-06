@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { auth } from '../../firebase-config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import formatErrorCodeToMessage from '../../utils/formatErrorCodeToMessage';
+import formatErrorCodeToMessage from '../../utils/Auth/formatErrorCodeToMessage';
 
 const loginEmailPassword = async (event) => {
   event.preventDefault();
